@@ -1,0 +1,28 @@
+PROGRAM: examples/form.html
+
+DESCRIPTION:
+ Formulario de contacto 
+
+STRUCTURE:
+HTML : True
+HEAD : True
+BODY : True
+DOCTYPE : HTML5
+
+TAGS:
+[ Line 3] html
+[ Line 4] head
+[ Line 5] title
+[ Line 5] /title
+[ Line 6] /head
+[ Line 7] body
+[ Line 8] h1
+[ Line 8] /h1
+[ Line 16] /body
+[ Line 17] /html
+
+ATTRIBUTES:
+COMMENTS:
+[ Line 2]
+<!-- Formulario de contacto -->
+
