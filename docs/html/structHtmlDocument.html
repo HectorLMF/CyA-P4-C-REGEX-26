@@ -76,41 +76,57 @@ $(function() {
   <div class="headertitle"><div class="title">HtmlDocument Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Estructura que almacena los resultados del análisis.  
+ <a href="structHtmlDocument.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="HtmlTypes_8hpp_source.html">HtmlTypes.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afcee59dc336010f45344266b8ddb62c7" id="r_afcee59dc336010f45344266b8ddb62c7"><td class="memItemLeft" align="right" valign="top"><a id="afcee59dc336010f45344266b8ddb62c7" name="afcee59dc336010f45344266b8ddb62c7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addTag</b> (const <a class="el" href="structTag.html">Tag</a> &amp;t)</td></tr>
+<tr class="memdesc:afcee59dc336010f45344266b8ddb62c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade una etiqueta al documento. <br /></td></tr>
 <tr class="separator:afcee59dc336010f45344266b8ddb62c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abf3d607ada9fe7a98e6bf4fab1ce2ec2" id="r_abf3d607ada9fe7a98e6bf4fab1ce2ec2"><td class="memItemLeft" align="right" valign="top"><a id="abf3d607ada9fe7a98e6bf4fab1ce2ec2" name="abf3d607ada9fe7a98e6bf4fab1ce2ec2"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addComment</b> (const <a class="el" href="structComment.html">Comment</a> &amp;c)</td></tr>
+<tr class="memdesc:abf3d607ada9fe7a98e6bf4fab1ce2ec2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Añade un comentario al documento. <br /></td></tr>
 <tr class="separator:abf3d607ada9fe7a98e6bf4fab1ce2ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a784b1dc6f16e51bbdac95821386dbf" id="r_a7a784b1dc6f16e51bbdac95821386dbf"><td class="memItemLeft" align="right" valign="top"><a id="a7a784b1dc6f16e51bbdac95821386dbf" name="a7a784b1dc6f16e51bbdac95821386dbf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setDescription</b> (const std::string &amp;d)</td></tr>
+<tr class="memdesc:a7a784b1dc6f16e51bbdac95821386dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Asigna la descripción del documento. <br /></td></tr>
 <tr class="separator:a7a784b1dc6f16e51bbdac95821386dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:abe9499c6b1cb1a72dcb4be690760f53b" id="r_abe9499c6b1cb1a72dcb4be690760f53b"><td class="memItemLeft" align="right" valign="top"><a id="abe9499c6b1cb1a72dcb4be690760f53b" name="abe9499c6b1cb1a72dcb4be690760f53b"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>filename</b></td></tr>
+<tr class="memdesc:abe9499c6b1cb1a72dcb4be690760f53b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nombre del fichero analizado. <br /></td></tr>
 <tr class="separator:abe9499c6b1cb1a72dcb4be690760f53b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47f8dc24f4db70ae5fcbcfa5cc6ac004" id="r_a47f8dc24f4db70ae5fcbcfa5cc6ac004"><td class="memItemLeft" align="right" valign="top"><a id="a47f8dc24f4db70ae5fcbcfa5cc6ac004" name="a47f8dc24f4db70ae5fcbcfa5cc6ac004"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>description</b></td></tr>
+<tr class="memdesc:a47f8dc24f4db70ae5fcbcfa5cc6ac004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Descripción (primer comentario tras DOCTYPE si existe) <br /></td></tr>
 <tr class="separator:a47f8dc24f4db70ae5fcbcfa5cc6ac004"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac435edd92a24fe0bfcf344d951930705" id="r_ac435edd92a24fe0bfcf344d951930705"><td class="memItemLeft" align="right" valign="top"><a id="ac435edd92a24fe0bfcf344d951930705" name="ac435edd92a24fe0bfcf344d951930705"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>has_doctype</b> = false</td></tr>
+<tr class="memdesc:ac435edd92a24fe0bfcf344d951930705"><td class="mdescLeft">&#160;</td><td class="mdescRight">True si se detectó &lt;!DOCTYPE html&gt; <br /></td></tr>
 <tr class="separator:ac435edd92a24fe0bfcf344d951930705"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac8c6d9b66b1bc4d624eecc1b17bd98c1" id="r_ac8c6d9b66b1bc4d624eecc1b17bd98c1"><td class="memItemLeft" align="right" valign="top"><a id="ac8c6d9b66b1bc4d624eecc1b17bd98c1" name="ac8c6d9b66b1bc4d624eecc1b17bd98c1"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>doctypeLine</b> = -1</td></tr>
+<tr class="memdesc:ac8c6d9b66b1bc4d624eecc1b17bd98c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Línea donde aparece el DOCTYPE. <br /></td></tr>
 <tr class="separator:ac8c6d9b66b1bc4d624eecc1b17bd98c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae51555150f9af43cb8e9d4bf044ede6a" id="r_ae51555150f9af43cb8e9d4bf044ede6a"><td class="memItemLeft" align="right" valign="top"><a id="ae51555150f9af43cb8e9d4bf044ede6a" name="ae51555150f9af43cb8e9d4bf044ede6a"></a>
 std::vector&lt; <a class="el" href="structTag.html">Tag</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>tags</b></td></tr>
+<tr class="memdesc:ae51555150f9af43cb8e9d4bf044ede6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lista de etiquetas encontradas. <br /></td></tr>
 <tr class="separator:ae51555150f9af43cb8e9d4bf044ede6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86cafe1fe6a4a2aac52b006f498be547" id="r_a86cafe1fe6a4a2aac52b006f498be547"><td class="memItemLeft" align="right" valign="top"><a id="a86cafe1fe6a4a2aac52b006f498be547" name="a86cafe1fe6a4a2aac52b006f498be547"></a>
 std::vector&lt; <a class="el" href="structComment.html">Comment</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>comments</b></td></tr>
+<tr class="memdesc:a86cafe1fe6a4a2aac52b006f498be547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lista de comentarios. <br /></td></tr>
 <tr class="separator:a86cafe1fe6a4a2aac52b006f498be547"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Estructura que almacena los resultados del análisis. </p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>src/<a class="el" href="HtmlTypes_8hpp_source.html">HtmlTypes.hpp</a></li>
 </ul>
 </div><!-- contents -->

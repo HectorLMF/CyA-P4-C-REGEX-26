@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['parse_0',['parse',['../classHtmlAnalyzer.html#a8e7a2115121eccfcb67b62e674945494',1,'HtmlAnalyzer']]]
+  ['htmlanalyzer_0',['HtmlAnalyzer',['../classHtmlAnalyzer.html#aa02230dbd79f713b68dfe5f1826f6c66',1,'HtmlAnalyzer']]]
 ];

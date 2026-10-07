@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['htmlanalyzer_0',['HtmlAnalyzer',['../classHtmlAnalyzer.html#aa02230dbd79f713b68dfe5f1826f6c66',1,'HtmlAnalyzer']]]
+  ['generate_0',['generate',['../classReportGenerator.html#ab9ad46b169de6ad5fbe91ace3feb39e5',1,'ReportGenerator']]]
 ];
