@@ -51,6 +51,14 @@ target = "_blank"
 src = "logo.png"
 alt = "Logo de la universidad"
 
+IMAGES:
+[Line 18]
+ALT: Expresiones regulares
+EXTENSION: .png
+[Line 31]
+ALT: Logo de la universidad
+EXTENSION: .png
+
 COMMENTS:
 [ Line 2]
 <!-- Pagina principal de la asignatura de Computabilidad y Algoritmia -->

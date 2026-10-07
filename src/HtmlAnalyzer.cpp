@@ -24,7 +24,7 @@ HtmlDocument HtmlAnalyzer::parse() {
         handleLine(line, lineno, doc, inComment, commentBuf, commentStart);
     }
 
-    // If file ends while in comment, flush
+    // Si el fichero termina estando dentro de un comentario, volcarlo
     if (inComment) {
         Comment c;
         c.text = commentBuf;
@@ -39,14 +39,14 @@ HtmlDocument HtmlAnalyzer::parse() {
 void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument &doc,
                               bool &inComment, std::string &commentBuf, int &commentStart) {
     std::string s = line;
-    // detect doctype
+    // detectar DOCTYPE
     std::regex doctype_re(R"(^\s*<!DOCTYPE\s+html[^>]*>\s*$)", std::regex::icase);
     if (std::regex_search(s, doctype_re)) {
         doc.has_doctype = true;
         if (doc.doctypeLine == -1) doc.doctypeLine = lineno;
     }
 
-    // comments handling
+    // manejo de comentarios
     size_t pos = 0;
     while (pos < s.size()) {
         if (!inComment) {
@@ -54,7 +54,7 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
             if (start == std::string::npos) break;
             size_t end = s.find("-->", start + 4);
             if (end != std::string::npos) {
-                // single-line comment
+                // comentario de una sola línea
                 Comment c;
                 c.startLine = lineno;
                 c.endLine = lineno;
@@ -62,7 +62,7 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
                 doc.addComment(c);
                 pos = end + 3;
             } else {
-                // start multiline
+                // inicio de comentario multilínea
                 inComment = true;
                 commentStart = lineno;
                 commentBuf = s.substr(start + 4);
@@ -71,7 +71,7 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
         } else {
             size_t end = s.find("-->");
             if (end != std::string::npos) {
-                // end comment
+                // fin de comentario
                 commentBuf += "\n" + s.substr(0, end);
                 Comment c;
                 c.startLine = commentStart;
@@ -88,7 +88,7 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
         }
     }
 
-    // tags processing (only when not inside comment)
+    // procesamiento de etiquetas (solo cuando no se está dentro de un comentario)
     if (!inComment) {
         std::regex tag_re(R"(<\s*/?\s*([a-zA-Z0-9]+)([^>]*)>)");
         auto begin = std::sregex_iterator(s.begin(), s.end(), tag_re);
@@ -99,17 +99,20 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
             std::string name = m.str(1);
             std::string rest = m.str(2);
             std::string tagText = full;
-            // process
+
+            // procesar
             Tag t;
             t.name = name;
             t.line = lineno;
-            // detect closing
+
+            // detectar cierre
             std::regex closing_re(R"(^\s*<\s*/)");
             if (std::regex_search(full, closing_re))
                 t.isClosing = true;
             else
                 t.isClosing = false;
             extractAttributes(rest, t);
+            
             // Only record allowed tags
             std::string lower = name;
             for (auto &c : lower) c = std::tolower(c);
@@ -122,14 +125,27 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
 }
 
 void HtmlAnalyzer::extractAttributes(const std::string &text, Tag &tag) {
-    std::regex attr_re("([a-zA-Z_:][-a-zA-Z0-9_:.]*)\\s*=\\s*\"([^\"]*)\"");
+
+    //MODIFICACION: Se mejoró la expresión regular para extraer atributos, permitiendo valores entre comillas dobles, 
+    //comillas simples o sin comillas. 
+    //Esto asegura que se capturen correctamente atributos como src y alt en todas las formas posibles.
+
+    std::regex attr_re(R"(([a-zA-Z_:][-a-zA-Z0-9_:.]*)\s*=\s*(?:\"([^\"]*)\"|'([^']*)'|([^\s>]+)))");
+
     auto itBegin = std::sregex_iterator(text.begin(), text.end(), attr_re);
     auto itEnd = std::sregex_iterator();
+
     for (auto it = itBegin; it != itEnd; ++it) {
         std::smatch m = *it;
         Attribute a;
         a.name = m.str(1);
-        a.value = m.str(2);
+    
+        if (m.size() > 2 && m.str(2).length())
+            a.value = m.str(2);
+        else if (m.size() > 3 && m.str(3).length())
+            a.value = m.str(3);
+        else if (m.size() > 4)
+            a.value = m.str(4);
         tag.addAttribute(a);
     }
 }
