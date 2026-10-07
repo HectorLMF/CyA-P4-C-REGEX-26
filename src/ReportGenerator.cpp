@@ -1,4 +1,5 @@
 #include "ReportGenerator.h"
+
 #include <iostream>
 
 void ReportGenerator::generate(const HtmlDocument &doc, std::ostream &os) {
@@ -6,7 +7,8 @@ void ReportGenerator::generate(const HtmlDocument &doc, std::ostream &os) {
     os << "DESCRIPTION:\n";
     if (!doc.comments.empty()) {
         // If first comment immediately after DOCTYPE, use as description
-        if (doc.has_doctype && !doc.comments.empty() && doc.comments.front().startLine == doc.doctypeLine + 1) {
+        if (doc.has_doctype && !doc.comments.empty() &&
+            doc.comments.front().startLine == doc.doctypeLine + 1) {
             os << doc.comments.front().text << "\n\n";
         } else if (!doc.comments.empty()) {
             // print first comment as description
@@ -47,8 +49,10 @@ void ReportGenerator::generate(const HtmlDocument &doc, std::ostream &os) {
 
     os << "COMMENTS:\n";
     for (auto &c : doc.comments) {
-        if (c.startLine == c.endLine) os << "[ Line " << c.startLine << "]\n";
-        else os << "[ Line " << c.startLine << " -" << c.endLine << "]\n";
+        if (c.startLine == c.endLine)
+            os << "[ Line " << c.startLine << "]\n";
+        else
+            os << "[ Line " << c.startLine << " -" << c.endLine << "]\n";
         os << "<!--" << c.text << "-->\n\n";
     }
 }

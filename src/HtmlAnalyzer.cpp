@@ -1,8 +1,9 @@
 #include "HtmlAnalyzer.h"
+
 #include <fstream>
-#include <sstream>
-#include <regex>
 #include <iostream>
+#include <regex>
+#include <sstream>
 
 HtmlAnalyzer::HtmlAnalyzer(const std::string &filename) : filename_(filename) {}
 
@@ -25,13 +26,18 @@ HtmlDocument HtmlAnalyzer::parse() {
 
     // If file ends while in comment, flush
     if (inComment) {
-        Comment c; c.text = commentBuf; c.startLine = commentStart; c.endLine = lineno; doc.addComment(c);
+        Comment c;
+        c.text = commentBuf;
+        c.startLine = commentStart;
+        c.endLine = lineno;
+        doc.addComment(c);
     }
 
     return doc;
 }
 
-void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument &doc, bool &inComment, std::string &commentBuf, int &commentStart) {
+void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument &doc,
+                              bool &inComment, std::string &commentBuf, int &commentStart) {
     std::string s = line;
     // detect doctype
     std::regex doctype_re(R"(^\s*<!DOCTYPE\s+html[^>]*>\s*$)", std::regex::icase);
@@ -46,18 +52,20 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
         if (!inComment) {
             size_t start = s.find("<!--", pos);
             if (start == std::string::npos) break;
-            size_t end = s.find("-->", start+4);
+            size_t end = s.find("-->", start + 4);
             if (end != std::string::npos) {
                 // single-line comment
-                Comment c; c.startLine = lineno; c.endLine = lineno;
-                c.text = s.substr(start+4, end-(start+4));
+                Comment c;
+                c.startLine = lineno;
+                c.endLine = lineno;
+                c.text = s.substr(start + 4, end - (start + 4));
                 doc.addComment(c);
                 pos = end + 3;
             } else {
                 // start multiline
                 inComment = true;
                 commentStart = lineno;
-                commentBuf = s.substr(start+4);
+                commentBuf = s.substr(start + 4);
                 break;
             }
         } else {
@@ -65,8 +73,14 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
             if (end != std::string::npos) {
                 // end comment
                 commentBuf += "\n" + s.substr(0, end);
-                Comment c; c.startLine = commentStart; c.endLine = lineno; c.text = commentBuf; doc.addComment(c);
-                inComment = false; commentBuf.clear(); pos = end + 3;
+                Comment c;
+                c.startLine = commentStart;
+                c.endLine = lineno;
+                c.text = commentBuf;
+                doc.addComment(c);
+                inComment = false;
+                commentBuf.clear();
+                pos = end + 3;
             } else {
                 commentBuf += "\n" + s;
                 break;
@@ -86,15 +100,21 @@ void HtmlAnalyzer::handleLine(const std::string &line, int lineno, HtmlDocument 
             std::string rest = m.str(2);
             std::string tagText = full;
             // process
-            Tag t; t.name = name; t.line = lineno;
+            Tag t;
+            t.name = name;
+            t.line = lineno;
             // detect closing
-            std::regex closing_re(R"(^\s*<\s*/)" );
-            if (std::regex_search(full, closing_re)) t.isClosing = true; else t.isClosing = false;
+            std::regex closing_re(R"(^\s*<\s*/)");
+            if (std::regex_search(full, closing_re))
+                t.isClosing = true;
+            else
+                t.isClosing = false;
             extractAttributes(rest, t);
             // Only record allowed tags
             std::string lower = name;
             for (auto &c : lower) c = std::tolower(c);
-            if (lower == "html" || lower == "head" || lower == "title" || lower == "body" || lower == "h1" || lower == "p" || lower == "a" || lower == "img") {
+            if (lower == "html" || lower == "head" || lower == "title" || lower == "body" ||
+                lower == "h1" || lower == "p" || lower == "a" || lower == "img") {
                 doc.addTag(t);
             }
         }
@@ -107,7 +127,8 @@ void HtmlAnalyzer::extractAttributes(const std::string &text, Tag &tag) {
     auto itEnd = std::sregex_iterator();
     for (auto it = itBegin; it != itEnd; ++it) {
         std::smatch m = *it;
-        Attribute a; a.name = m.str(1);
+        Attribute a;
+        a.name = m.str(1);
         a.value = m.str(2);
         tag.addAttribute(a);
     }

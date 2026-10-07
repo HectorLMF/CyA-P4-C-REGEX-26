@@ -1,7 +1,8 @@
+#include <fstream>
+#include <iostream>
+
 #include "HtmlAnalyzer.h"
 #include "ReportGenerator.h"
-#include <iostream>
-#include <fstream>
 
 int main(int argc, char **argv) {
     if (argc != 3) {
@@ -15,7 +16,10 @@ int main(int argc, char **argv) {
     HtmlDocument doc = analyzer.parse();
 
     std::ofstream ofs(output);
-    if (!ofs) { std::cerr << "Cannot open output file\n"; return 2; }
+    if (!ofs) {
+        std::cerr << "Cannot open output file\n";
+        return 2;
+    }
     ReportGenerator::generate(doc, ofs);
     return 0;
 }
